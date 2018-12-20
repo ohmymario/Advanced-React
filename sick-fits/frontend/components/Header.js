@@ -6,7 +6,7 @@ const Header = () => (
       <a href="#">Sick Fits</a>
       <Nav />
     </div>
-    <div>
+    <div className="sub-bar">
       <p>Search</p>
     </div>
     <div>Cart</div>
