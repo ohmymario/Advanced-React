@@ -1,5 +1,20 @@
+# For Prisma - updates ./generated/prisma.graphql
+# npm run deploy for every change
+
 type User {
   id: ID! @unique
   name: String!
   email: String!
+}
+
+type Item {
+  id: ID! @unique
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Int!
+  # createAt: DateTime!
+  # updatedAt: DateTime!
+  # user: User!
 }
