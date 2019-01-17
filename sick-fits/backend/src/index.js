@@ -12,7 +12,7 @@ server.start(
   {
   cors: {
     // Only allow permitted website to access server
-    cred: true,
+    credentials: true,
     origin: process.env.FRONTEND_URL
   }, 
   }, 
