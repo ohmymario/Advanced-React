@@ -32,7 +32,7 @@ const ItemsList = styled.div`
 `;
 
 // Hold all "items" Data
-export default class Items extends Component {
+class Items extends Component {
   render() {
     return (
       <Center>
@@ -52,3 +52,6 @@ export default class Items extends Component {
     )
   }
 };
+
+export default Items;
+export { ALL_ITEMS_QUERY };
