@@ -6,6 +6,7 @@ import User from './User';
 const Nav = () => (
   <NavStyles>
     <User>
+      {/* {({ data, error, loading })} */}
       {({ data: { me } }) => {
         console.log(me);
         if (me) return <p>{me.name}</p>;
