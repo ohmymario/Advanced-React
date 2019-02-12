@@ -52,7 +52,9 @@ const Mutations = {
         permissions: { set: ['USER'] },
       }
     }, info);
+
     // create the JWT Token for the user 
+    // user.id inserted to Token as userId 
     const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
     // Set JWT as a cookie on the response
     ctx.response.cookie('token', token, {
@@ -61,6 +63,7 @@ const Mutations = {
     });
     // Return the user to the browser
     return user;
+
   }
 };
 
