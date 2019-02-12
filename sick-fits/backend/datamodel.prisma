@@ -2,6 +2,7 @@
 # npm run deploy for every change
 
 # enum allows for preset options
+# These are the only selectable options
 enum Permission {
   ADMIN
   USER
