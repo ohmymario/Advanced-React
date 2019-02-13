@@ -30,7 +30,7 @@ const Mutations = {
   async deleteItem(parent, args, ctx, info) {
     const where = { id: args.id };
 
-    // 1. Find the item 
+    // 1. Find the item
     const item = await ctx.db.query.item({ where }, `{ id, title }`)
 
     // 2. Check if they own the item, or have permissions
@@ -42,9 +42,9 @@ const Mutations = {
   async signup(parent, args, ctx, info) {
     // lowercase user email
     args.email = args.email.toLowerCase();
-    // hash user password 
+    // hash user password
     const password = await bcrypt.hash(args.password, 10);
-    // create the user in the database 
+    // create the user in the database
     const user = await ctx.db.mutation.createUser({
       data: {
         ...args,
@@ -53,8 +53,8 @@ const Mutations = {
       }
     }, info);
 
-    // create the JWT Token for the user 
-    // user.id inserted to Token as userId 
+    // create the JWT Token for the user
+    // user.id inserted to Token as userId
     const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
     // Set JWT as a cookie on the response
     ctx.response.cookie('token', token, {
@@ -64,6 +64,27 @@ const Mutations = {
     // Return the user to the browser
     return user;
 
+  },
+  async signin(parent, { email, password }, ctx, info) {
+    // 1. Check if there is a user with that email
+    const user = await ctx.db.query.user({ where: { email }});
+    if(!user) {
+      throw new Error(`No such user found for email ${email}`);
+    }
+    // 2. Check if there password is correct. Compares hashes
+    const valid = await bcrypt.compare(password, user.password);
+    if(!valid) {
+      throw new Error(`Invalid Password`)
+    }
+    // 3. Generate the JWT Token
+    const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+    // 4. Set the cookie with the token
+    ctx.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+    })
+    // 5. Return the User
+    return user;
   }
 };
 
