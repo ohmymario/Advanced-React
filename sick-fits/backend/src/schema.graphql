@@ -39,6 +39,14 @@ type Mutation {
 
   signout: SuccessMessage
 
+  requestReset(email: String!): SuccessMessage
+
+  resetPassword(
+    resetToken: String!,
+    password: String!,
+    confirmPassword: String!
+  ): User!
+
 }
 
 type Query {
