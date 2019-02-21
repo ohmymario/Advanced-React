@@ -114,10 +114,6 @@ const Mutations = {
       }
     })
 
-    console.log(`resetToken ${resetToken}`)
-    console.log(`resetTokenExpiry ${resetTokenExpiry}`);
-    console.log(res);
-
     return { message: 'Check email for reset' };
     // 3. Email them a reset token
   },
