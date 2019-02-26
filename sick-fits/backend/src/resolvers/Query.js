@@ -5,7 +5,7 @@ const Query = {
   item: forwardTo('db'),
   itemsConnection: forwardTo('db'),
   me(parent, args, ctx, info) {
-    // Check for user ID
+    // Check for user ID given by middleware in index.js
     if(!ctx.request.userId) {
       return null;
     }

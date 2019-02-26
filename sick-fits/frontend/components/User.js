@@ -13,7 +13,7 @@ const CURRENT_USER_QUERY = gql`
   }
 `;
 
-// Pass in user information to children
+// Pass in user information to children components
 const User = props => (
   <Query {...props} query={CURRENT_USER_QUERY}>
     {payload => props.children(payload)}
