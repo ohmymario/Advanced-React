@@ -112,6 +112,7 @@ class UserPermissions extends React.Component {
             <label htmlFor={`${user.id}-permission-${permission}`}>
             {/* Checked is flipped to "true" if seeded state contains the possiblePermission*/}
               <input
+              id={`${user.id}-permission-${permission}`}
               type="checkbox"
               checked={this.state.permissions.includes(permission)}
               value={permission}
