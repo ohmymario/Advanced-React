@@ -1,9 +1,10 @@
-// Link to avoid refresh and take advantage of 
+// Link to avoid refresh and take advantage of
 import Link from 'next/link';
 import styled from 'styled-components';
-import Nav from './Nav';
 import Router from 'next/router';
 import NProgress from 'nprogress';
+import Nav from './Nav';
+import Cart from './Cart';
 
 Router.onRouteChangeStart = () => {
   NProgress.start()
@@ -72,6 +73,7 @@ const Header = () => (
       <p>Search</p>
     </div>
     <div>Cart</div>
+    <Cart/>
   </StyledHeader>
 );
 
