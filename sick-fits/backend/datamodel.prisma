@@ -20,6 +20,7 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission]
+  cart: [CartItem!]!
 }
 
 type Item {
@@ -31,3 +32,15 @@ type Item {
   price: Int!
   user: User!
 }
+
+type CartItem {
+  id: ID! @unique
+  quantity: Int! @default(value: 1)
+  item: Item! # relationship to Item
+  user: User! # relationship to User
+}
+
+
+# @unique - The @unique directive expresses a unique constraint,
+# meaning Prisma ensures that there never will be two nodes with the
+# same values for the annotated field.
