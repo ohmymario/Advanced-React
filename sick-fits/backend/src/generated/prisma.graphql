@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/mario-0a70dd/sickkkkkkkkk-fits/dev
-# timestamp: Tue Mar 12 2019 14:26:35 GMT-0700 (Pacific Daylight Time)
+# timestamp: Tue Mar 19 2019 16:38:07 GMT-0700 (Pacific Daylight Time)
 
 type AggregateCartItem {
   count: Int!
@@ -21,7 +21,7 @@ type BatchPayload {
 type CartItem implements Node {
   id: ID!
   quantity: Int!
-  item: Item!
+  item: Item
   user: User!
 }
 
@@ -36,8 +36,9 @@ type CartItemConnection {
 }
 
 input CartItemCreateInput {
+  id: ID
   quantity: Int
-  item: ItemCreateOneInput!
+  item: ItemCreateOneInput
   user: UserCreateOneWithoutCartInput!
 }
 
@@ -47,8 +48,9 @@ input CartItemCreateManyWithoutUserInput {
 }
 
 input CartItemCreateWithoutUserInput {
+  id: ID
   quantity: Int
-  item: ItemCreateOneInput!
+  item: ItemCreateOneInput
 }
 
 """An edge in a connection."""
@@ -190,7 +192,7 @@ input CartItemSubscriptionWhereInput {
 
 input CartItemUpdateInput {
   quantity: Int
-  item: ItemUpdateOneRequiredInput
+  item: ItemUpdateOneInput
   user: UserUpdateOneRequiredWithoutCartInput
 }
 
@@ -221,7 +223,7 @@ input CartItemUpdateManyWithWhereNestedInput {
 
 input CartItemUpdateWithoutUserDataInput {
   quantity: Int
-  item: ItemUpdateOneRequiredInput
+  item: ItemUpdateOneInput
 }
 
 input CartItemUpdateWithWhereUniqueWithoutUserInput {
@@ -335,6 +337,7 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  id: ID
   title: String!
   description: String!
   image: String
@@ -450,9 +453,11 @@ input ItemUpdateManyMutationInput {
   price: Int
 }
 
-input ItemUpdateOneRequiredInput {
+input ItemUpdateOneInput {
   create: ItemCreateInput
   connect: ItemWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: ItemUpdateDataInput
   upsert: ItemUpsertNestedInput
 }
@@ -809,6 +814,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -833,6 +839,7 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutCartInput {
+  id: ID
   name: String!
   email: String!
   password: String!
