@@ -5,18 +5,19 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import Nav from './Nav';
 import Cart from './Cart';
+import Search from './Search';
 
 Router.onRouteChangeStart = () => {
-  NProgress.start()
-}
+  NProgress.start();
+};
 
 Router.onRouteChangeComplete = () => {
-  NProgress.done()
-}
+  NProgress.done();
+};
 
 Router.onRouteChangeError = () => {
-  NProgress.done()
-}
+  NProgress.done();
+};
 
 const Logo = styled.h1`
   font-style: 4rem;
@@ -56,7 +57,6 @@ const StyledHeader = styled.header`
     grid-template-columns: 1fr;
     border-bottom: 1px solid ${props => props.theme.lightgrey};
   }
-
 `;
 
 const Header = () => (
@@ -64,16 +64,15 @@ const Header = () => (
     <div className="bar">
       <Logo>
         <Link href="/">
-          <a >Sick Fits</a>
+          <a>Sick Fits</a>
         </Link>
       </Logo>
       <Nav />
     </div>
     <div className="sub-bar">
-      <p>Search</p>
+      <Search />
     </div>
-    <div>Cart</div>
-    <Cart/>
+    <Cart />
   </StyledHeader>
 );
 
