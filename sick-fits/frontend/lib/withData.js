@@ -2,8 +2,7 @@ import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { endpoint } from '../config';
 
-import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart'
-
+import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
 
 function createClient({ headers }) {
   return new ApolloClient({
@@ -27,18 +26,18 @@ function createClient({ headers }) {
             });
             // Write the cart State to the opposite value
             const data = {
-              data: {cartOpen: !cartOpen},
+              data: { cartOpen: !cartOpen },
             };
             // Write that new data back into the cache
             cache.writeData(data);
             return data;
-          }
-        }
+          },
+        },
       },
       defaults: {
-        cartOpen: false
-      }
-    }
+        cartOpen: false,
+      },
+    },
   });
 }
 
