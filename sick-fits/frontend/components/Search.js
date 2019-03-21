@@ -77,9 +77,7 @@ class AutoComplete extends React.Component {
                       id: 'search',
                       className: this.state.loading ? 'loading' : '',
                       onChange: e => {
-                        if (e.target.value === '') {
-                          clearSelection();
-                        }
+                        if (e.target.value === '') clearSelection();
                         e.persist();
                         this.onChange(e, client);
                       },
