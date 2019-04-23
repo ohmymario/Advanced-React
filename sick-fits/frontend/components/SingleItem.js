@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-import Error from './ErrorMessage'
+import Error from './ErrorMessage';
 
 const SingleItemStyles = styled.div`
   max-width: 1200px;
@@ -23,54 +23,48 @@ const SingleItemStyles = styled.div`
     margin: 3rem;
     font-size: 2rem;
   }
-`
+`;
 
 const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
-    item(where: {id: $id}) {
+    item(where: { id: $id }) {
       id
       title
       description
       largeImage
     }
-  } 
+  }
 `;
 
 class SingleItem extends Component {
   render() {
     return (
-      <Query
-      query={SINGLE_ITEM_QUERY}
-      variables={{id: this.props.id}}
-      >
-      
-      {({ error, loading, data }) => {
-        
-        if(error) return <Error error={error}/>;
-        if(loading) return <p>Loading...</p>;
-        if(!data.item) return <p>No item for {this.props.id}</p>
+      <Query query={SINGLE_ITEM_QUERY} variables={{ id: this.props.id }}>
+        {({ error, loading, data }) => {
+          if (error) return <Error error={error} />;
+          if (loading) return <p>Loading...</p>;
+          if (!data.item) return <p>No item for {this.props.id}</p>;
 
-        const item = data.item;
+          const { item } = data;
 
-        return (
-          <SingleItemStyles>
-            {/* Side effect for affecting META tags */}
-            <Head>
-              <title>SickFits | {item.title}</title>
-            </Head>
-            <img src={item.largeImage} alt={item.title}/>
-            <div className="details">
-              <h2>Viewing {item.title}</h2>
-              <p>{item.description}</p>
-            </div>
-          </SingleItemStyles>
-        )
-      }}
-
+          return (
+            <SingleItemStyles>
+              {/* Side effect for affecting META tags */}
+              <Head>
+                <title>SickFits | {item.title}</title>
+              </Head>
+              <img src={item.largeImage} alt={item.title} />
+              <div className="details">
+                <h2>Viewing {item.title}</h2>
+                <p>{item.description}</p>
+              </div>
+            </SingleItemStyles>
+          );
+        }}
       </Query>
-    )
+    );
   }
 }
 
-
 export default SingleItem;
+export { SINGLE_ITEM_QUERY };
