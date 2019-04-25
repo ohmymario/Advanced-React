@@ -17,41 +17,56 @@ const PAGINATION_QUERY = gql`
 `;
 
 const Pagination = props => (
-    <Query query={PAGINATION_QUERY}>
-      {({data, loading, error}) => {
-        if(loading) return <p>Loading...</p>;
-        
-        const count = data.itemsConnection.aggregate.count;
-        const pages = Math.ceil(count / perPage);
-        const page = props.page;
+  <Query query={PAGINATION_QUERY}>
+    {({ data, loading, error }) => {
+      if (loading) return <p>Loading...</p>;
 
-        return(
-          <PaginationStyles>
+      const { count } = data.itemsConnection.aggregate;
+      const pages = Math.ceil(count / perPage);
+      const { page } = props;
 
-            <Head>
-              <title>Sicks Fits! - Page {page} of {pages} </title>
-            </Head>
+      return (
+        <PaginationStyles data-test="pagination">
+          <Head>
+            <title>
+              Sicks Fits! - Page {page} of {pages}{' '}
+            </title>
+          </Head>
 
-            <Link prefetch href={{
+          <Link
+            prefetch
+            href={{
               pathname: 'items',
-              query: { page: page - 1}
-            }}>
-              <a className='prev' aria-disabled={page <= 1} >← Prev</a>
-            </Link>
+              query: { page: page - 1 },
+            }}
+          >
+            <a className="prev" aria-disabled={page <= 1}>
+              ← Prev
+            </a>
+          </Link>
 
-            <p>Page {page} of {pages}</p>
-            <p>{count} Items Total</p>
+          <p>
+            Page {page} of
+            <span className="totalPages">{pages}</span>
+          </p>
+          <p>{count} Items Total</p>
 
-            <Link prefetch href={{
+          <Link
+            prefetch
+            href={{
               pathname: 'items',
-              query: { page: page + 1}
-            }}>
-              <a className='prev' aria-disabled={page >= pages} >Next →</a>
-            </Link>
-
-          </PaginationStyles>
-      )}}
-    </Query>
-)
+              query: { page: page + 1 },
+            }}
+          >
+            <a className="next" aria-disabled={page >= pages}>
+              Next →
+            </a>
+          </Link>
+        </PaginationStyles>
+      );
+    }}
+  </Query>
+);
 
 export default Pagination;
+export { PAGINATION_QUERY };
