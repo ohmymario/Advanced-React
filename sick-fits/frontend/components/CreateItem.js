@@ -5,7 +5,7 @@ import Router from 'next/router';
 
 import Form from './styles/Form';
 import PriceTag from './styles/PriceTag';
-import Error from '../components/ErrorMessage'
+import Error from './ErrorMessage';
 
 const CREATE_ITEM_MUTATION = gql`
   mutation CREATE_ITEM_MUTATION(
@@ -28,33 +28,31 @@ const CREATE_ITEM_MUTATION = gql`
 `;
 
 class CreateItem extends Component {
-
   state = {
-    title: 'Title',
-    description: 'this is the description',
-    image: 'image goes here',
-    largeImage: 'largerdogimage.jpg',
-    price: 2000,
-  }
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
+    price: 0,
+  };
 
-  handleChange = (e) => {
-    const {name, type, value} = e.target;
+  handleChange = e => {
+    const { name, type, value } = e.target;
     // Changes value based on Datatype
     const val = type === 'number' ? parseFloat(value) : value;
-    this.setState({ [name]: val })
-  }
+    this.setState({ [name]: val });
+  };
 
   // Uploading Images to Cloudinary
   uploadFile = async e => {
-    const files = e.target.files;
+    const { files } = e.target;
     const data = new FormData();
-    
+
     data.append('file', files[0]);
     // Preset is the same name as in Cloudinary
     data.append('upload_preset', 'sickfits');
 
-    const res = await 
-    fetch('https://api.cloudinary.com/v1_1/dosxuuaky/image/upload', {
+    const res = await fetch('https://api.cloudinary.com/v1_1/dosxuuaky/image/upload', {
       method: 'POST',
       body: data,
     });
@@ -62,33 +60,30 @@ class CreateItem extends Component {
     const file = await res.json();
     this.setState({
       image: file.secure_url,
-      largeImage: file.eager[0].secure_url
+      largeImage: file.eager[0].secure_url,
     });
-};
+  };
 
   render() {
     return (
-
-      <Mutation
-        mutation={CREATE_ITEM_MUTATION}
-        variables={this.state}>
+      <Mutation mutation={CREATE_ITEM_MUTATION} variables={this.state}>
         {(createItem, { loading, error }) => (
-
-          <Form onSubmit={async e => {
-            // Stop the form from submitting
-            e.preventDefault();
-            // Call the mutation
-            const res = await createItem();
-            // Redirect to single item page
-            console.log(res);
-            Router.push({
-              pathname: '/item',
-              query: { id: res.data.createItem.id }
-            })
-          }}>
-            <Error error={error}/>
+          <Form
+            data-test="form"
+            onSubmit={async e => {
+              // Stop the form from submitting
+              e.preventDefault();
+              // Call the mutation
+              const res = await createItem();
+              // Redirect to single item page
+              Router.push({
+                pathname: '/item',
+                query: { id: res.data.createItem.id },
+              });
+            }}
+          >
+            <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
-
               <label htmlFor="file">
                 Image
                 <input
@@ -97,8 +92,11 @@ class CreateItem extends Component {
                   name="file"
                   placeholder="Upload an Image"
                   required
-                  onChange={this.uploadFile} />
-                  {this.state.image && <img width="15%" src={this.state.image} alt="Upload Preview"/> }
+                  onChange={this.uploadFile}
+                />
+                {this.state.image && (
+                  <img width="15%" src={this.state.image} alt="Upload Preview" />
+                )}
               </label>
               <label htmlFor="title">
                 Title
@@ -109,19 +107,21 @@ class CreateItem extends Component {
                   placeholder="Title"
                   required
                   value={this.state.title}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange}
+                />
               </label>
               <label htmlFor="price">
                 Price
-              <input
-                type="number"
-                id="price"
-                name="price"
-                placeholder="Price"
-                required
-                value={this.state.price}
-                onChange={this.handleChange} />
-                </label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  placeholder="Price"
+                  required
+                  value={this.state.price}
+                  onChange={this.handleChange}
+                />
+              </label>
               <label htmlFor="description">
                 Description
                 <textarea
@@ -130,13 +130,13 @@ class CreateItem extends Component {
                   placeholder="Description"
                   required
                   value={this.state.description}
-                  onChange={this.handleChange} />
+                  onChange={this.handleChange}
+                />
               </label>
 
               <button type="submit">Submit</button>
             </fieldset>
           </Form>
-
         )}
       </Mutation>
     );
