@@ -6,18 +6,14 @@ import Error from './ErrorMessage';
 import { CURRENT_USER_QUERY } from './User';
 
 const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION(
-    $email: String!,
-    $name: String!,
-    $password: String!
-  ) {
+  mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
     signup(email: $email, name: $name, password: $password) {
       id
       email
       name
     }
   }
-`
+`;
 
 class Signup extends Component {
   state = {
@@ -26,27 +22,27 @@ class Signup extends Component {
     password: '',
   };
 
-  saveToState = (e) => {
+  saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
   render() {
     return (
       <Mutation
-      mutation={SIGNUP_MUTATION}
-      variables={this.state}
-      refetchQueries={[
-        { query: CURRENT_USER_QUERY }
-      ]}
+        mutation={SIGNUP_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(signup, { error, loading }) => (
-          <Form method="post" onSubmit={ async (e) => {
+          <Form
+            method="post"
+            onSubmit={async e => {
               e.preventDefault();
               await signup();
-              this.setState({ name: '', email: '', password: '',})
-          }}>
+              this.setState({ name: '', email: '', password: '' });
+            }}
+          >
             <fieldset disabled={loading} aria-busy={loading}>
-
               <h2>Sign up for an Account</h2>
               <Error error={error} />
 
@@ -91,3 +87,4 @@ class Signup extends Component {
 }
 
 export default Signup;
+export { SIGNUP_MUTATION };
