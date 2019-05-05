@@ -2,8 +2,8 @@ import { mount } from 'enzyme';
 import wait from 'waait';
 import toJSON from 'enzyme-to-json';
 import { MockedProvider } from 'react-apollo/test-utils';
-
 import { ApolloConsumer } from 'react-apollo';
+
 import Signup, { SIGNUP_MUTATION } from '../components/Signup';
 import { CURRENT_USER_QUERY } from '../components/User';
 import { fakeUser } from '../lib/testUtils';
@@ -56,6 +56,8 @@ describe('<Signup/>', () => {
   });
 
   it('Calls the mutation properly', async () => {
+    // Use apollo client to manually fire off the query to see if the data is
+    // being set to the apollo store
     let apolloClient;
     const wrapper = mount(
       <MockedProvider mocks={mocks}>
