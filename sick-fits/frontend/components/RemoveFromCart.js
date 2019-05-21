@@ -31,7 +31,6 @@ class RemoveFromCart extends React.Component {
   // Called after response from server after a Mutation
   // Update local cache when item deleted
   update = (cache, payload) => {
-    console.log('Running remove from cart update function!');
     // 1. Read the cache ( grab copy of cache )
     const data = cache.readQuery({
       query: CURRENT_USER_QUERY,
@@ -80,3 +79,4 @@ class RemoveFromCart extends React.Component {
 }
 
 export default RemoveFromCart;
+export { REMOVE_FROM_CART_MUTATION };
