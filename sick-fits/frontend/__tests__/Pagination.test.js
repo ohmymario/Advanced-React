@@ -84,7 +84,6 @@ describe('<Pagination/>', () => {
     );
     await wait();
     wrapper.update();
-    console.log(wrapper.debug());
     expect(wrapper.find('a.prev').prop('aria-disabled')).toEqual(false);
     expect(wrapper.find('a.next').prop('aria-disabled')).toEqual(false);
   });

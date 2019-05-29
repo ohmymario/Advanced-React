@@ -2,11 +2,15 @@ import withApollo from 'next-with-apollo';
 import ApolloClient from 'apollo-boost';
 import { endpoint } from '../config';
 
-import { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION } from '../components/Cart';
+import { LOCAL_STATE_QUERY } from '../components/Cart';
 
 function createClient({ headers }) {
   return new ApolloClient({
     uri: process.env.NODE_ENV === 'development' ? endpoint : endpoint,
+    onError: ({ networkError, graphQLErrors }) => {
+      console.log('graphQLErrors', graphQLErrors);
+      console.log('networkError', networkError);
+    },
     request: operation => {
       operation.setContext({
         fetchOptions: {

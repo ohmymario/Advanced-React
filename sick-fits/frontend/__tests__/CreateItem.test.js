@@ -62,7 +62,6 @@ describe('<createItem/>', () => {
       .simulate('change', { target: { value: 'This is a really nice item', name: 'description' } });
 
     const createItemState = wrapper.find('CreateItem').instance().state;
-    console.log(createItemState);
 
     expect(createItemState).toMatchObject({
       title: 'Testing',

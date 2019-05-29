@@ -19,7 +19,7 @@ describe('formatMoney function', () => {
     expect(formatMoney(5012)).toEqual('$50.12');
     expect(formatMoney(101)).toEqual('$1.01');
     expect(formatMoney(651651650154161514677719865)).toEqual(
-      '$6,516,516,501,541,620,000,000,000.00'
+      '$6,516,516,501,541,615,000,000,000.00'
     );
   });
 });
