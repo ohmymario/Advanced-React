@@ -6,11 +6,8 @@ import { LOCAL_STATE_QUERY } from '../components/Cart';
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
-    onError: ({ networkError, graphQLErrors }) => {
-      console.log('graphQLErrors', graphQLErrors);
-      console.log('networkError', networkError);
-    },
+    uri: process.env.NODE_ENV === 'development' ? endpoint : endpoint,
+
     request: operation => {
       operation.setContext({
         fetchOptions: {
