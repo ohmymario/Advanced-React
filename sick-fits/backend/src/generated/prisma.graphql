@@ -1,5 +1,5 @@
 # source: https://sicks-fits-produc-a86b207373.herokuapp.com/sick-fits-prod/prod
-# timestamp: Wed May 29 2019 18:16:08 GMT-0700 (Pacific Daylight Time)
+# timestamp: Thu May 30 2019 17:43:35 GMT-0700 (Pacific Daylight Time)
 
 type AggregateCartItem {
   count: Int!
@@ -329,7 +329,8 @@ type Item implements Node {
   image: String
   largeImage: String
   price: Int!
-  user: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -349,7 +350,6 @@ input ItemCreateInput {
   image: String
   largeImage: String
   price: Int!
-  user: UserCreateOneInput!
 }
 
 input ItemCreateOneInput {
@@ -379,6 +379,10 @@ enum ItemOrderByInput {
   largeImage_DESC
   price_ASC
   price_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ItemPreviousValues {
@@ -388,6 +392,8 @@ type ItemPreviousValues {
   image: String
   largeImage: String
   price: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ItemSubscriptionPayload {
@@ -435,7 +441,6 @@ input ItemUpdateDataInput {
   image: String
   largeImage: String
   price: Int
-  user: UserUpdateOneRequiredInput
 }
 
 input ItemUpdateInput {
@@ -444,7 +449,6 @@ input ItemUpdateInput {
   image: String
   largeImage: String
   price: Int
-  user: UserUpdateOneRequiredInput
 }
 
 input ItemUpdateManyMutationInput {
@@ -700,7 +704,50 @@ input ItemWhereInput {
 
   """All values greater than or equal the given value."""
   price_gte: Int
-  user: UserWhereInput
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 input ItemWhereUniqueInput {
@@ -782,6 +829,8 @@ input OrderCreateInput {
   id: ID
   total: Int!
   charge: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   items: OrderItemCreateManyInput
   user: UserCreateOneInput!
 }
@@ -1551,6 +1600,8 @@ input OrderSubscriptionWhereInput {
 input OrderUpdateInput {
   total: Int
   charge: String
+  createdAt: DateTime
+  updatedAt: DateTime
   items: OrderItemUpdateManyInput
   user: UserUpdateOneRequiredInput
 }
@@ -1558,6 +1609,8 @@ input OrderUpdateInput {
 input OrderUpdateManyMutationInput {
   total: Int
   charge: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input OrderWhereInput {
